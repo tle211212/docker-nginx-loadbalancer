@@ -1,8 +1,9 @@
-FROM ubuntu:14.04
-MAINTAINER Jason Feinstein <jason.feinstein@gmail.com>
+FROM ubuntu:latest
+MAINTAINER Trung Le <tle211212@gmail.com>
 
 RUN apt-get update
 RUN apt-get install -y nginx python python-dev python-pip
+RUN apt-get clean
 
 RUN pip install Jinja2
 
@@ -16,7 +17,7 @@ ADD scripts/ /scripts/
 
 VOLUME ["/etc/nginx/ssl/", "/scripts/"]
 
-EXPOSE 80 443
+EXPOSE 80 443 8080
 
 WORKDIR /scripts/
 CMD ["python", "startup.py"]

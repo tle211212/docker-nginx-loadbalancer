@@ -182,15 +182,15 @@ def parse_env(env=os.environ):
 
         assert path != None, 'Could not find %s_PATH environment variable for service %s.' % (service_name, service_name)
         assert balancing_type in [None, 'ip_hash', 'least_conn'], 'Invalid value for %s_BALANCING_TYPE: %s, must be "ip_hash", "least_conn", or nonexistant.' % (service_name, balancing_type)
-        assert expose_protocol in ['http', 'https', 'both'], 'Invalid value for %s_EXPOSE_PROTOCOL: %s, must be "http", "https", or "both"' % (service_name, expose_protocol)
-        assert expose_protocol == 'http' or hostname != None, 'With %s_EXPOSE_PROTOCOL=%s, you must supply %s_HOSTNAME.' % (service_name, expose_protocol, service_name)
+        assert expose_protocol in ['http', 'https', 'both', '8080'], 'Invalid value for %s_EXPOSE_PROTOCOL: %s, must be "http", "https", "both" or "8080"' % (service_name, expose_protocol)
+        assert expose_protocol in ['http', '8080'] or hostname != None, 'With %s_EXPOSE_PROTOCOL=%s, you must supply %s_HOSTNAME.' % (service_name, expose_protocol, service_name)
 
         if hostname == None:
             hostname = value['host'] = '0.0.0.0'
 
         if hosts.get(hostname) == None:
             hosts[hostname] = {
-                'protocols': {'http': False, 'https': False},
+                'protocols': {'http': False, 'https': False, '8080': False},
                 'services': []
             }
 
@@ -208,9 +208,7 @@ def parse_env(env=os.environ):
         access_log = value['access_log'] = env.get('%s_ACCESS_LOG' % (service_name), '/dev/stdout')
         log_level = value['log_level'] = env.get('%s_LOG_LEVEL' % (service_name), 'error')
         error_log = value['error_log'] = env.get('%s_ERROR_LOG' % (service_name), '/dev/stdout')
-        assert access_log in ['/dev/stdout', 'off'], 'Invalid value for %s_ERROR_LOG: %s, must be "/dev/stdout" or "off"' % (service_name, access_log)
         assert log_level in [None, 'emerg', 'alert', 'crit', 'error', 'warn', 'notice', 'info', 'debug'], 'Invalid value for %s_LOG_LEVEL: %s, must be "emerg", "alert", "crit", "error", "warn", "notice", "info", "debug" or nonexistant.' % (service_name, log_level)
-        assert error_log in ['/dev/stdout', '/dev/null'], 'Invalid value for %s_ERROR_LOG: %s, must be "/dev/stdout" or "/dev/null"' % (service_name, error_log)
 
         if value['protocols']['https']:
             ssl_certificate = env.get('%s_SSL_CERTIFICATE' % formatted_hostname)

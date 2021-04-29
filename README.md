@@ -12,7 +12,7 @@ Optional/Conditional environment variables:
     <service-name>_REMOTE_PORT=<remoteport> (optional - default: 80)
     <service-name>_REMOTE_PATH=<remotepath> (optional - default: /)
     <service-name>_BALANCING_TYPE=[ip_hash|least_conn] (optional)
-    <service-name>_EXPOSE_PROTOCOL=[http|https|both] (optional - default: http)
+    <service-name>_EXPOSE_PROTOCOL=[http|https|both|8080] (optional - default: http)
     <service-name>_HOSTNAME=<vhostname> (required if <service-name>_EXPOSE_PROTOCOL is https or both)
     <service-name>_ACCESS_LOG=[/dev/stdout|off] (optional - default: /dev/stdout)
     <service-name>_ERROR_LOG=[/dev/stdout|/dev/null] (optional - default: /dev/stdout)
