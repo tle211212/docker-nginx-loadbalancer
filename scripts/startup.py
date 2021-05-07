@@ -179,11 +179,15 @@ def parse_env(env=os.environ):
         balancing_type = value['balancing_type'] = env.get('%s_BALANCING_TYPE' % (service_name))
         expose_protocol = value['expose_protocol'] = env.get('%s_EXPOSE_PROTOCOL' % (service_name), 'http')
         hostname = value['host'] = env.get('%s_HOSTNAME' % (service_name))
+        proxy_readtimeout = value['proxy_readtimeout'] = env.get('%s_PROXY_READ_TIMEOUT' % (service_name))
 
         assert path != None, 'Could not find %s_PATH environment variable for service %s.' % (service_name, service_name)
         assert balancing_type in [None, 'ip_hash', 'least_conn'], 'Invalid value for %s_BALANCING_TYPE: %s, must be "ip_hash", "least_conn", or nonexistant.' % (service_name, balancing_type)
         assert expose_protocol in ['http', 'https', 'both', '8080'], 'Invalid value for %s_EXPOSE_PROTOCOL: %s, must be "http", "https", "both" or "8080"' % (service_name, expose_protocol)
         assert expose_protocol in ['http', '8080'] or hostname != None, 'With %s_EXPOSE_PROTOCOL=%s, you must supply %s_HOSTNAME.' % (service_name, expose_protocol, service_name)
+
+        if proxy_readtimeout == None:
+            proxy_readtimeout = value['proxy_readtimeout'] = '60s'
 
         if hostname == None:
             hostname = value['host'] = '0.0.0.0'

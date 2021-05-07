@@ -17,6 +17,7 @@ Optional/Conditional environment variables:
     <service-name>_ACCESS_LOG=[/dev/stdout|off] (optional - default: /dev/stdout)
     <service-name>_ERROR_LOG=[/dev/stdout|/dev/null] (optional - default: /dev/stdout)
     <service-name>_LOG_LEVEL=[emerg|alert|crit|error|warn|notice|info|debug'] (optional - default: error)
+    <service-name]_PROXY_READ_TIMEOUT=60s (optional)
     <env-formatted-vhostname>_SSL_CERTIFICATE=<something.pem> (required if the vhost will need ssl support)
     <env-formatted-vhostname>_SSL_CERTIFICATE_KEY=<something.key> (required if the vhost will need ssl support)
     <env-formatted-vhostname>_SSL_DHPARAM=<dhparam.pem> (required if the vhost will need ssl support)

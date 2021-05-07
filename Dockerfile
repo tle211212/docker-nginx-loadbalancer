@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 MAINTAINER Trung Le <tle211212@gmail.com>
 
 RUN apt-get update
